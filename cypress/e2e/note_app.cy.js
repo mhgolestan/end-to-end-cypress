@@ -1,7 +1,31 @@
 describe('Note app', () => {
-    it('front page can be opened', () => {
+    beforeEach(() => {
         cy.visit('http://localhost:5173')
+    })
+    it('front page can be opened', () => {
         cy.contains('Notes')
         cy.contains('Note app, Department of Computer Science, University of Helsinki 2024')
+    })
+    it('login form can be opened', function() {
+        cy.contains('log in').click()
+        cy.get('[data-testid="username"]').type(Cypress.env("USERNAME"))
+        cy.get('[data-testid="password"]').type(Cypress.env("PASSWORD"))
+        cy.get('form > button').click()
+        cy.contains('Mohammad logged in')
+    })
+    describe('when logged in', function() {
+        beforeEach(function() {
+            cy.contains('log in').click()
+            cy.get('[data-testid="username"]').type(Cypress.env("USERNAME"))
+            cy.get('[data-testid="password"]').type(Cypress.env("PASSWORD"))
+            cy.get('form > button').click()
+        })
+
+        it('a new note can be created', function() {
+            cy.contains('new note').click()
+            cy.get('input').type('a note created by cypress')
+            cy.contains('save').click()
+            cy.contains('a note created by cypress')
+        })
     })
 })
