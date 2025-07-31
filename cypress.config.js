@@ -1,5 +1,5 @@
 const { defineConfig } = require("cypress");
-dotenv = require('dotenv');
+const dotenv = require('dotenv');
 dotenv.config();
 module.exports = defineConfig({
   e2e: {
