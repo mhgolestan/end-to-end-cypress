@@ -1,12 +1,12 @@
 describe('Note app', () => {
     beforeEach(function ()  {
-        cy.request('POST', 'http://localhost:3001/api/testing/reset')
+        cy.request('POST', `${Cypress.env('BACKEND')}/testing/reset`)
         const user = {
             name: 'Mohammad',
             username: Cypress.env("USERNAME"),
             password: Cypress.env("PASSWORD"),
         }
-        cy.request('POST', 'http://localhost:3001/api/users/', user)
+        cy.request('POST', `${Cypress.env('BACKEND')}/users`, user)
         cy.visit('')
     })
     it('front page can be opened', () => {
@@ -38,6 +38,9 @@ describe('Note app', () => {
             cy.login({
                 username: Cypress.env("USERNAME"), password: Cypress.env("PASSWORD")
             })
+            cy.createNote({ content: 'first note', important: false })
+            cy.createNote({ content: 'second note', important: false })
+            cy.createNote({ content: 'third note', important: false })
         })
 
         it('a new note can be created', function() {
