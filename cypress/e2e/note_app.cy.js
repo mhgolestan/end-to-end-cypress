@@ -7,7 +7,7 @@ describe('Note app', () => {
             password: Cypress.env("PASSWORD"),
         }
         cy.request('POST', 'http://localhost:3001/api/users/', user)
-        cy.visit("http://localhost:5173/")
+        cy.visit('')
     })
     it('front page can be opened', () => {
         cy.contains('Notes')

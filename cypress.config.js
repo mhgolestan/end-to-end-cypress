@@ -9,5 +9,6 @@ module.exports = defineConfig({
       config.env.PASSWORD = process.env.PASSWORD;
       return config;
     },
+    baseUrl: 'http://localhost:5173'
   },
 });
