@@ -1,5 +1,5 @@
 describe('Note app', () => {
-    beforeEach(() => {
+    beforeEach(function ()  {
         cy.request('POST', 'http://localhost:3001/api/testing/reset')
         const user = {
             name: 'Mohammad',
@@ -7,7 +7,7 @@ describe('Note app', () => {
             password: Cypress.env("PASSWORD"),
         }
         cy.request('POST', 'http://localhost:3001/api/users/', user)
-        cy.visit('http://localhost:5173')
+        cy.visit("http://localhost:5173/")
     })
     it('front page can be opened', () => {
         cy.contains('Notes')
@@ -35,10 +35,9 @@ describe('Note app', () => {
     })
     describe('when logged in', function() {
         beforeEach(function() {
-            cy.contains('log in').click()
-            cy.get('[data-testid="username"]').type(Cypress.env("USERNAME"))
-            cy.get('[data-testid="password"]').type(Cypress.env("PASSWORD"))
-            cy.get('form > button').click()
+            cy.login({
+                username: Cypress.env("USERNAME"), password: Cypress.env("PASSWORD")
+            })
         })
 
         it('a new note can be created', function() {
